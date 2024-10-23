@@ -7,7 +7,7 @@ import numpy as np
 df = pd.read_csv('medical_examination.csv')
 
 # 2
-df['overweight'] = None
+df['overweight'] = (df['weight'] / ((df['height']/100)**2)).apply(lambda x: 1 if > 25 else 0)
 
 # 3
 for field in ['cholesterol','gluc']:
@@ -21,20 +21,22 @@ def draw_cat_plot():
 
     # 6
     df_cat = df_cat.groupby(['cardio', 'variable'],as_index=False).value_counts()
+    df_cat.rename(columns={'count':'total'},inplace=True)
     print(df_cat)
 
     # 7
 
 
-
     # 8
-    fig = None
+    fig = sns.catplot(x="variable",
+                hue="value", col="cardio",
+                data=df_cat, kind='count')
 
 
     # 9
-    #fig.savefig('catplot.png')
-    #return fig
-    return None
+    fig.savefig('catplot.png')
+    return fig
+
 
 # 10
 def draw_heat_map():
