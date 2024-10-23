@@ -7,7 +7,7 @@ import numpy as np
 df = pd.read_csv('medical_examination.csv')
 
 # 2
-df['overweight'] = (df['weight'] / ((df['height']/100)**2)).apply(lambda x: 1 if > 25 else 0)
+df['overweight'] = (df['weight'] / ((df['height']/100)**2)).apply(lambda x: 1 if x > 25 else 0)
 
 # 3
 for field in ['cholesterol','gluc']:
@@ -28,9 +28,9 @@ def draw_cat_plot():
 
 
     # 8
-    fig = sns.catplot(x="variable",
+    fig = sns.catplot(x="variable", y='total',
                 hue="value", col="cardio",
-                data=df_cat, kind='count')
+                data=df_cat, kind='bar')
 
 
     # 9
